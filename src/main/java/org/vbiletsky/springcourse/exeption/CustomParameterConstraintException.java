@@ -1,4 +1,4 @@
-package org.vbiletsky.springcourse.exeptions;
+package org.vbiletsky.springcourse.exeption;
 
 
 public class CustomParameterConstraintException extends RuntimeException {

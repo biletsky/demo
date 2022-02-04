@@ -1,8 +1,8 @@
-package org.vbiletsky.springcourse.controllers;
+package org.vbiletsky.springcourse.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.vbiletsky.springcourse.models.Person;
+import org.vbiletsky.springcourse.dao.PersonDAO;
+import org.vbiletsky.springcourse.model.Person;
 import org.vbiletsky.springcourse.service.PersonService;
 
 import java.util.Map;
@@ -20,17 +20,17 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public Map<String, Set<String>> index(){
+    public Map<String, Set<String>> index() {
         return personService.index();
     }
 
     @GetMapping("/{name}")
-    public Set<String> show(@PathVariable("name")String name){
+    public Set<String> show(@PathVariable("name") String name) {
         return personService.show(name);
     }
 
     @PostMapping
-    public void create(@ModelAttribute("person")Person person){
+    public void create(@ModelAttribute("person") Person person) {
         personService.save(person);
     }
 
@@ -39,9 +39,8 @@ public class PeopleController {
         personService.update(name, phoneNumber);
     }
 
-   @DeleteMapping()
-   public void delete (@ModelAttribute
-    Person person){
-       personService.delete(person);
-   }
+    @DeleteMapping()
+    public void delete(@ModelAttribute Person person) {
+        personService.delete(person);
+    }
 }

@@ -1,9 +1,10 @@
 package org.vbiletsky.springcourse.service;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.vbiletsky.springcourse.exeptions.CustomErrorException;
-import org.vbiletsky.springcourse.models.Person;
+import org.vbiletsky.springcourse.dao.PersonDAO;
+import org.vbiletsky.springcourse.exeption.CustomErrorException;
+import org.vbiletsky.springcourse.model.Person;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,45 +13,44 @@ import java.util.Set;
 @Service
 public class PersonService {
 
-    private final Map<String, Set<String>> people;
+    PersonDAO personDAO;
 
-    public PersonService(Map<String, Set<String>> people) {
-        this.people = people;
+    public PersonService(@Lazy PersonDAO personDAO) {
+        this.personDAO = personDAO;
     }
 
     public Map<String, Set<String>> index() {
-        return new LinkedHashMap<>(this.people);
+        return new LinkedHashMap<>(personDAO.index());
     }
 
     public Set<String> show(String name) {
-        if(people.get(name)==null){
-            throw new CustomErrorException(HttpStatus.BAD_REQUEST,"Customer is not exist");
+
+        if(personDAO.show(name)==null){
+            throw new CustomErrorException("Customer is not exist");
         }
-        else return people.get(name);
+        else return personDAO.show(name);
     }
 
     public void save(Person person) {
-        people.put(person.getName(), person.getPhoneNumber());
+        personDAO.save(person);
     }
 
     public void update(String name, String phone) {
-        Set<String> personPhones = people.get(name);
+        Set<String> personPhones = personDAO.show(name);
         if (personPhones.contains(phone)){
-            throw new CustomErrorException(HttpStatus.BAD_REQUEST,"Phone exist");
+            throw new CustomErrorException("Phone exist");
         }
         else if(phone==null){
-            throw new CustomErrorException(HttpStatus.INTERNAL_SERVER_ERROR,"Phone is null");
+            throw new CustomErrorException("Phone is null");
         }
         else
-            personPhones.add(phone);
+            personDAO.update(name,phone);
     }
 
-    public Set<String> delete(Person person) {
-        for (Map.Entry<String, Set<String>> entry : people.entrySet()) {
-            if (entry.getKey().contains(person.getName())) {
-                return people.remove(person.getName());
-            }
-        }
-        throw new CustomErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Person is not exist");
-    }
+   public Set<String> delete(Person person) {
+       if(personDAO.delete(person)==null){
+           throw new CustomErrorException("Customer is not exist");
+       }
+       else return personDAO.delete(person);
+   }
 }

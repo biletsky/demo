@@ -1,4 +1,4 @@
-package org.vbiletsky.springcourse.models;
+package org.vbiletsky.springcourse.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,13 +1,13 @@
-package org.vbiletsky.springcourse.controllers;
+package org.vbiletsky.springcourse.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.vbiletsky.springcourse.exeptions.CustomDataNotFoundException;
-import org.vbiletsky.springcourse.exeptions.CustomErrorException;
-import org.vbiletsky.springcourse.exeptions.CustomParameterConstraintException;
-import org.vbiletsky.springcourse.exeptions.ErrorResponse;
+import org.vbiletsky.springcourse.exeption.CustomDataNotFoundException;
+import org.vbiletsky.springcourse.exeption.CustomErrorException;
+import org.vbiletsky.springcourse.exeption.CustomParameterConstraintException;
+import org.vbiletsky.springcourse.exeption.ErrorResponse;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -1,4 +1,4 @@
-package org.vbiletsky.springcourse.exeptions;
+package org.vbiletsky.springcourse.exeption;
 
 import lombok.Getter;
 import lombok.Setter;
